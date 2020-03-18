@@ -1,4 +1,5 @@
 const express = require('express');
+const dotenv = require('dotenv');
 
 class App {
     constructor() {
@@ -8,6 +9,7 @@ class App {
     }
 
     middlewares() {
+        dotenv.config();
         this.app.use(express.json());
     }
 
