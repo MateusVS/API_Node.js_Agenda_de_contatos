@@ -2,10 +2,13 @@ const express = require('express');
 
 const route = express.Router();
 
-const UsersController = require('./app/controllers/auth/UsersController');
-const SessionController = require('./app/controllers/auth/SessionController');
+const authMiddleware = require('./app/middlewares/auth');
 
-route.post('/signup', UsersController.create);
-route.post('/signin', SessionController.create);
+const controllers = require('./app/controllers');
+
+route.post('/signup', controllers.UsersController.create);
+route.post('/signin', controllers.SessionController.create);
+
+route.get('/teste', authMiddleware, (req, res) => res.json({ ok: 'true' }));
 
 module.exports = route;
