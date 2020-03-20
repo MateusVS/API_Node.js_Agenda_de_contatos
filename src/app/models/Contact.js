@@ -11,7 +11,7 @@ module.exports = (Sequelize, DataTypes) => {
       as: 'user',
     });
     // relacionamento 1:n
-    Contact.hasMany(models.ContacInfo, { as: 'contactInfo' });
+    Contact.hasMany(models.ContactInfo, { as: 'contactInfo' });
   };
 
   return Contact;

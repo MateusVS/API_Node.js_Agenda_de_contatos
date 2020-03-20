@@ -9,7 +9,7 @@ module.exports = (Sequelize, Datatypes) => {
   ContactInfo.associate = function (models) {
     ContactInfo.belongsTo(models.Contact, {
       foreignKey: 'contactId',
-      as: 'contact',
+      as: 'contacts',
     });
   };
 

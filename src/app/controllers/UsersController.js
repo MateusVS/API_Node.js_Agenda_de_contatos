@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-const { User } = require('../../models');
+const { User } = require('../models');
 
 class UsersController {
   // eslint-disable-next-line class-methods-use-this

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../../models');
-const authConfig = require('../../../config/auth');
+const { User } = require('../models');
+const authConfig = require('../../config/auth');
 
 class SessionController {
   // eslint-disable-next-line class-methods-use-this
