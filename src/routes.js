@@ -14,7 +14,7 @@ route.get('/dashboard', controllers.ContactController.index);
 route.get('/dashboard/contact/:id', controllers.ContactController.show);
 route.post('/dashboard/new-contact', upload.single('image'), controllers.ContactController.create);
 route.delete('/dashboard/contact/:id', controllers.ContactController.destroy);
-route.patch('/dashboard/contact/:id', controllers.ContactController.update);
+route.patch('/dashboard/contact/:id', upload.single('image'), controllers.ContactController.update);
 
 route.get('/dashboard/test', (req, res) => res.json({ ok: 'true' }));
 

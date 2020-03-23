@@ -6,7 +6,6 @@ const { Contact, User } = require('../models');
 class ContactController {
 
   async index(req, res) {
-    console.log(req.userId);
     await Contact.findAll({ where: { userId: req.userId } })
       .then((data) => res.json(data))
       .catch((error) => res.status(400).json({ error: `Falha ao carregar contatos, erro: ${error}` }));
@@ -35,7 +34,7 @@ class ContactController {
   }
 
   async update(req, res) {
-    await Contact.update({ where: { id: req.params.id } })
+    await Contact.update({ image: req.file.path }, { where: { id: req.params.id } })
       .then((ok) => {
         if (ok == true) {
           res.json({ message: 'Contato atualizado com sucesso' });
