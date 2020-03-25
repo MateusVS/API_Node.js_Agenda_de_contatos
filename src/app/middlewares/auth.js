@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
 
     req.userId = decoded.id;
 
-    return next();
+    return next(res.userId);
   } catch (error) {
     return res.status(401).json({ error: `Token invalido, erro: ${error}` });
   }

@@ -17,9 +17,9 @@ module.exports = (Sequelize, DataTypes) => {
   });
   // relacionamento 1:n
   // eslint-disable-next-line func-names
-  /* User.associate = function (models) {
+  User.associate = function (models) {
     User.hasMany(models.Contact, { as: 'contacts' });
-  }; */
+  };
 
   // eslint-disable-next-line func-names
   User.prototype.validPassword = function (password) {

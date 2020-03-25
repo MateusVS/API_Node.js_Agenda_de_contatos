@@ -2,12 +2,12 @@ module.exports = (Sequelize, DataTypes) => {
   const Contact = Sequelize.define('Contact', {
     name: DataTypes.STRING,
     image: DataTypes.STRING,
-    userId: DataTypes.STRING,
+    UserId: DataTypes.STRING,
   }); // relacionamento 1:1
   // eslint-disable-next-line func-names
   Contact.associate = function (models) {
     Contact.belongsTo(models.User, {
-      foreignKey: 'userId',
+      foreignKey: 'UserId',
       as: 'user',
     });
     // relacionamento 1:n
