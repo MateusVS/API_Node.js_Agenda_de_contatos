@@ -5,7 +5,15 @@ const { Contact, User } = require('../models');
 
 class ContactController {
   async index(req, res) {
-    await Contact.findAll({ where: { UserId: req.userId }, include: 'contactInfo' })
+    await Contact.findAll({
+      where: {
+        UserId: req.userId,
+      },
+      include: 'contactInfo',
+      order: [
+        'name', 'name',
+      ],
+    })
       .then((data) => res.json(data))
       .catch((error) => res.status(400).json({ error: `Falha ao carregar contatos, erro: ${error}` }));
   }
@@ -22,7 +30,7 @@ class ContactController {
     await User.findByPk(UserId)
       .catch((error) => res.status(400).json({ error: `Usuario invalido ${error}` }));
 
-    await Contact.create({ ...req.body, image })
+    await Contact.create({ ...req.body, image }, { include: 'contactInfo' })
       .then((data) => res.json({ data }))
       .catch((error) => res.status(500).json({ error: `Impossivel criar contato, erro ${error}` }));
   }
