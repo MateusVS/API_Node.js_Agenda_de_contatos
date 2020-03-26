@@ -7,12 +7,16 @@ class ContactController {
   async index(req, res) {
     await Contact.findAll({
       where: {
-
+        UserId: req.userId,
       },
-      include: [
-        'owner',
-        'contactInfo',
-      ],
+      attributes: ['id', 'name', 'image'],
+      include: [{
+        association: 'owner',
+        attributes: ['id', 'name', 'email'],
+      }, {
+        association: 'contactInfo',
+        attributes: ['id', 'type', 'contact'],
+      }],
       order: [
         'name', 'name',
       ],
@@ -41,7 +45,22 @@ class ContactController {
   async show(req, res) {
     const { id } = req.params;
 
-    await Contact.findByPk(id)
+    await Contact.findByPk(id, {
+      where: {
+        UserId: req.userId,
+      },
+      attributes: ['id', 'name', 'image'],
+      include: [{
+        association: 'owner',
+        attributes: ['id', 'name', 'email'],
+      }, {
+        association: 'contactInfo',
+        attributes: ['id', 'type', 'contact'],
+      }],
+      order: [
+        'name', 'name',
+      ],
+    })
       .then((data) => res.json(data))
       .catch((error) => res.status(400).json({ error: `Impossivel encontrar contato, erro: ${error}` }));
   }
