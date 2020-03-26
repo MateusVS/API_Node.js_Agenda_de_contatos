@@ -7,9 +7,12 @@ class ContactController {
   async index(req, res) {
     await Contact.findAll({
       where: {
-        UserId: req.userId,
+
       },
-      include: 'contactInfo',
+      include: [
+        'owner',
+        'contactInfo',
+      ],
       order: [
         'name', 'name',
       ],

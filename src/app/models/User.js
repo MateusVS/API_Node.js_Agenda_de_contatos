@@ -2,9 +2,44 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (Sequelize, DataTypes) => {
   const User = Sequelize.define('User', {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Esse campo nao pode ser vazio',
+        },
+        len: {
+          args: [3, 20],
+          msg: 'Esse campo deve ter entre 3 e 20 caracteres',
+        },
+      },
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Esse campo nao pode ser vazio',
+        },
+        isEmail: {
+          msg: 'Esse campo precisa ser um e-mail',
+        },
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Esse campo nao pode ser vazio',
+        },
+        len: {
+          args: [8, 16],
+          msg: 'Esse campo deve ter entre 8 e 16 caracteres',
+        },
+      },
+    },
   }, {
     hooks: {
       // eslint-disable-next-line no-shadow
