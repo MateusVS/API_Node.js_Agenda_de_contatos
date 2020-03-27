@@ -46,9 +46,6 @@ class ContactController {
     const { id } = req.params;
 
     await Contact.findByPk(id, {
-      where: {
-        UserId: req.userId,
-      },
       attributes: ['id', 'name', 'image'],
       include: [{
         association: 'owner',
@@ -61,7 +58,13 @@ class ContactController {
         'name', 'name',
       ],
     })
-      .then((data) => res.json(data))
+      .then((data) => {
+        if (data.owner.id == req.userId) {
+          res.json(data);
+        } else {
+          res.status(401).json({ error: 'Acesso inválido' });
+        }
+      })
       .catch((error) => res.status(400).json({ error: `Impossivel encontrar contato, erro: ${error}` }));
   }
 
@@ -77,7 +80,7 @@ class ContactController {
         if (ok == true) {
           res.json({ message: 'Contato atualizado com sucesso' });
         } else {
-          res.json({ message: 'Erro ao tentar atualizar contato, talvez o mesmo não exista' });
+          res.status(400).json({ message: 'Erro ao tentar atualizar contato, talvez o mesmo não exista' });
         }
       })
       .catch((error) => res.status(500).json({ error: `Impossivel atualizar contato, erro: ${error}` }));
