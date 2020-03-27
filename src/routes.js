@@ -8,7 +8,7 @@ const controllers = require('./app/controllers');
 const validations = require('./app/validations');
 
 route.post('/signup', validations.User.userValidation(), validations.User.validate, controllers.UsersController.create);
-route.post('/signin', controllers.SessionController.create);
+route.post('/signin', validations.Session.SessionValidator(), validations.Session.validate, controllers.SessionController.create);
 
 route.use('/dashboard', authMiddleware);
 route.get('/dashboard', controllers.ContactController.index);

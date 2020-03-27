@@ -23,7 +23,7 @@ class SessionController {
       expiresIn: authConfig.ttl,
     });
 
-    return res.json({ user, token });
+    return res.status(200).json({ user, token });
   }
 }
 

@@ -21,7 +21,7 @@ class ContactController {
         'name', 'name',
       ],
     })
-      .then((data) => res.json(data))
+      .then((data) => res.status(200).json(data))
       .catch((error) => res.status(400).json({ error: `Falha ao carregar contatos, erro: ${error}` }));
   }
 
@@ -38,7 +38,7 @@ class ContactController {
       .catch((error) => res.status(400).json({ error: `Usuario invalido ${error}` }));
 
     await Contact.create({ ...req.body, image }, { include: 'contactInfo' })
-      .then((data) => res.json({ data }))
+      .then((data) => res.status(200).json({ data }))
       .catch((error) => res.status(500).json({ error: `Impossivel criar contato, erro ${error}` }));
   }
 
@@ -60,7 +60,7 @@ class ContactController {
     })
       .then((data) => {
         if (data.owner.id == req.userId) {
-          res.json(data);
+          res.status(200).json(data);
         } else {
           res.status(401).json({ error: 'Acesso inválido' });
         }
@@ -78,7 +78,7 @@ class ContactController {
     await Contact.update({ ...req.body, image }, { where: { id: req.params.id } })
       .then((ok) => {
         if (ok == true) {
-          res.json({ message: 'Contato atualizado com sucesso' });
+          res.status(200).json({ message: 'Contato atualizado com sucesso' });
         } else {
           res.status(400).json({ message: 'Erro ao tentar atualizar contato, talvez o mesmo não exista' });
         }
@@ -90,9 +90,9 @@ class ContactController {
     await Contact.destroy({ where: { id: req.params.id } })
       .then((ok) => {
         if (ok == true) {
-          res.json({ message: 'Contato deletado com sucesso' });
+          res.status(200).json({ message: 'Contato deletado com sucesso' });
         } else {
-          res.json({ message: 'Erro ao tentar deletar contato, talvez o mesmo não exista' });
+          res.status(402).json({ message: 'Erro ao tentar deletar contato, talvez o mesmo não exista' });
         }
       })
       .catch((error) => res.status(500).json({ error: `Impossivel deletar contato, erro: ${error}` }));

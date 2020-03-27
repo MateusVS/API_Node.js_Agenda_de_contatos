@@ -17,7 +17,7 @@ class UsersController {
     }
 
     await User.create(req.body)
-      .then((data) => res.json({ data }))
+      .then((data) => res.status(200).json({ data }))
       .catch((error) => res.status(500).json({ error: `${error}: Erro ao realizar cadastro, tente novamente` }));
   }
 }
