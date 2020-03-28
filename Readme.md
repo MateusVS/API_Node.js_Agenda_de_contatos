@@ -12,7 +12,7 @@ API criada em NodeJS para gerenciar Contatos
 Execute os seguintes comandos em um terminal:
 
 ```
-git clone
+git clone https://github.com/MateusVS/API_Node.js_Agenda_de_contatos.git
 ```
 
 ```
@@ -41,6 +41,15 @@ No arquivo .env insira as informações, como no exemplo a seguir:
     JWT_TTL=86400000 --> Tempo de duração de uma sessão após usuário logado, informado em segundos
 
 
+```
+
+```
+Execue o comando: npx sequelize db:create , para criar o banco de dados
+```
+
+
+```
+Execue o comando: npx sequelize db:migrate , para gerar as tabelas
 ```
 
 # Para rodar o projeto
