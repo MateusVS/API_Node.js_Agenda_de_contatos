@@ -31,9 +31,10 @@ module.exports = (Sequelize, DataTypes) => {
     Contact.belongsTo(models.User, {
       foreignKey: 'UserId',
       as: 'owner',
+      onDelete: 'CASCADE',
     });
     // relacionamento 1:n
-    Contact.hasMany(models.ContactInfo, { as: 'contactInfo' });
+    Contact.hasMany(models.ContactInfo, { as: 'contactInfo', onDelete: 'CASCADE' });
   };
 
   return Contact;

@@ -65,7 +65,7 @@ class ContactController {
           res.status(401).json({ error: 'Acesso inválido' });
         }
       })
-      .catch((error) => res.status(400).json({ error: `Impossivel encontrar contato, erro: ${error}` }));
+      .catch((error) => res.status(500).json({ error: `Impossivel encontrar contato, erro: ${error}` }));
   }
 
   async update(req, res) {
@@ -75,24 +75,36 @@ class ContactController {
     if (req.file !== undefined) {
       image = req.file.path;
     }
-    await Contact.update({ ...req.body, image }, { where: { id: req.params.id } })
+    await Contact.update({ ...req.body, image },
+      { where: { id: req.params.id, UserId: req.userId } })
       .then((ok) => {
         if (ok == true) {
           res.status(200).json({ message: 'Contato atualizado com sucesso' });
         } else {
-          res.status(400).json({ message: 'Erro ao tentar atualizar contato, talvez o mesmo não exista' });
+          res.status(401).json({ message: 'Erro ao tentar atualizar contato, talvez o mesmo não exista' });
         }
       })
       .catch((error) => res.status(500).json({ error: `Impossivel atualizar contato, erro: ${error}` }));
   }
 
   async destroy(req, res) {
-    await Contact.destroy({ where: { id: req.params.id } })
+    await Contact.destroy({
+      where: {
+        id: req.params.id,
+        UserId: req.userId,
+      },
+      include: [{
+        association: 'contactInfo',
+        where: {
+          ContactId: req.params.id,
+        },
+      }],
+    })
       .then((ok) => {
         if (ok == true) {
           res.status(200).json({ message: 'Contato deletado com sucesso' });
         } else {
-          res.status(402).json({ message: 'Erro ao tentar deletar contato, talvez o mesmo não exista' });
+          res.status(401).json({ message: 'Erro ao tentar deletar contato, talvez o mesmo não exista' });
         }
       })
       .catch((error) => res.status(500).json({ error: `Impossivel deletar contato, erro: ${error}` }));

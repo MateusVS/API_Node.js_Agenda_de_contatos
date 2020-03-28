@@ -13,7 +13,7 @@ route.post('/signin', validations.Session.SessionValidator(), validations.Sessio
 route.use('/dashboard', authMiddleware);
 route.get('/dashboard', controllers.ContactController.index);
 route.get('/dashboard/contact/:id', controllers.ContactController.show);
-route.post('/dashboard/new-contact', validations.Contact.contactValidation(), validations.Contact.validate, upload.single('image'), controllers.ContactController.create);
+route.post('/dashboard/contact', validations.Contact.contactValidation(), validations.Contact.validate, upload.single('image'), controllers.ContactController.create);
 route.delete('/dashboard/contact/:id', controllers.ContactController.destroy);
 route.patch('/dashboard/contact/:id', validations.patchContact.contactValidation(), validations.patchContact.validate, upload.single('image'), controllers.ContactController.update);
 

@@ -12,11 +12,11 @@ class SessionController {
     });
 
     if (!user) {
-      return res.status(400).json({ error: 'E-mail não cadastrado ' });
+      return res.status(403).json({ error: 'E-mail não cadastrado ' });
     }
 
     if (!await user.validPassword(req.body.password)) {
-      return res.status(400).json({ error: 'Senha Inválida' });
+      return res.status(403).json({ error: 'Senha Inválida' });
     }
 
     const token = jwt.sign({ id: user.id }, authConfig.secret, {

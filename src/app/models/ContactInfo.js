@@ -27,6 +27,7 @@ module.exports = (Sequelize, Datatypes) => {
     ContactInfo.belongsTo(models.Contact, {
       foreignKey: 'ContactId',
       as: 'contacts',
+      onDelete: 'CASCADE',
     });
   };
 

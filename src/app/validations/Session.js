@@ -13,18 +13,17 @@ const SessionValidator = () => [
     .withMessage('O campo senha deve possuir de 8 a 16 caracteres'),
 ];
 
-
 const validate = (req, res, next) => {
   const error = validationResult(req);
   if (error.isEmpty()) {
-    next();
+    return next();
   }
 
   const extractedErrors = [];
   error.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
 
   return res.status(422).json({
-    errors: extractedErrors,
+    error: extractedErrors,
   });
 };
 

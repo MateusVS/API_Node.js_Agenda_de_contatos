@@ -23,6 +23,7 @@ module.exports = {
         model: 'Contacts',
         key: 'id',
       },
+      onDelete: 'CASCADE',
       allowNull: false,
     },
 
